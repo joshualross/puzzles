@@ -14,48 +14,21 @@ function findBusinesses($upperLeft, $lowerRight, $businesses)
             $dateLineCross = true;
 
         if ($dateLineCross) {
-            //to fail
-            //xl 175 xr -175 -> x > 0 ? x < xl || x < xr : x < xl || x > xr
-            //xl -180 xr -175 -> x < xl || x > xr
-            //xl 130 xr 155 -> x < xl || x > xr
-            //xl 25 xr 90
             if ($longitude >= 0 && $longitude < $upperLeft["lon"])
-            {
-                echo "excluded: dateline && x >= 0 && x < xl({$upperLeft['lon']}) " . json_encode($value) . PHP_EOL;
                 continue;
-            }
             else if ($longitude < 0 && $longitude > $lowerRight["lon"])
-            {
-                echo "excluded: dateline && x < 0 && x > xr({$lowerRight['lon']}) " . json_encode($value) . PHP_EOL;
                 continue;
-            }
 
         } else {
 
-            //xl 45 90 -> x < xl || x > xr
-            //xl 0 xr 10 -> x < xl || x > xr
-            //xl -90 xr -45 -> x< xl || x > xr
-            //xl -10 xr 10 -> x < xl || x > xr
-            //xl -2 xr 15 -> x < xl || x > xr
             if ($longitude >= 0 && $longitude < $upperLeft["lon"])
-            {
-                echo "excluded: x >= 0 && x < xl({$upperLeft['lon']}) " . json_encode($value) . PHP_EOL;
                 continue;
-            }
             else if ($longitude < 0  && $longitude < $lowerRight["lon"])
-            {
-                echo "excluded: x < 0 && x < xr({$lowerRight['lon']}) " . json_encode($value) . PHP_EOL;
                 continue;
-            }
         }
 
-        //latitude -> fail condition
-        //yl 90 yr 75 -> y < yl || y < yr
         if ($latitude > $upperLeft ["lat"] || $latitude < $lowerRight ["lat"])
-        {
-            echo "excluded: y > yl({$upperLeft['lat']}) || y < yr({$lowerRight['lat']}) " . json_encode($value) . PHP_EOL;
             continue;
-        }
 
         $results[] = $value;
     }
