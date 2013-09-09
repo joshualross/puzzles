@@ -3,6 +3,9 @@
 //latitude ranges from (-90, 90) longitude from (-180, 180)
 function findBusinesses($upperLeft, $lowerRight, $businesses)
 {
+    //@todo if the input is sorted we can check the first and last element
+    //and if both are inside, then we return the full business list
+
     $results = array();
     foreach ($businesses as $key => $value )
     {
